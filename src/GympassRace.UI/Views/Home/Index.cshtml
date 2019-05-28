@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="card text-center">
+    <div class="card-header">
+        Gympass Race
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Para o processamento faça o upload do arquivo</h5>
+        <p class="card-text">Somente arquivos com extensão .log e .txt são suportados</p>
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#fileModal">Realizar upload de arquivo</a>
+    </div>
+</div>
+
+<div class="modal fade" id="fileModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Faça o upload o arquivo</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formFile" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="ProcessRaceFile">
+                    <div class="recipient-file">
+                        <label for="file" class="col-form-label">Log da corrida:</label>
+                        <input type="file" class="form-control-file" name="file" id="file" accept=".log,.txt" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="submit" form="formFile" class="btn btn-primary">Enviar arquivo</button>
+            </div>
+        </div>
+    </div>
+</div>
