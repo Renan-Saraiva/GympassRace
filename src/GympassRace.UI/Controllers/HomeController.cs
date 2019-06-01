@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using GympassRace.UI.Models;
+﻿using GympassRace.UI.Models;
+using GympassRace.Utils;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Diagnostics;
+using System.Text;
 
 namespace GympassRace.UI.Controllers
 {
@@ -18,6 +17,28 @@ namespace GympassRace.UI.Controllers
 
         public IActionResult ProcessRaceFile(IFormFile file)
         {
+            if (file != null && file.Length > 0)
+            {
+                try
+                {
+                    using (FileReader fileReader = new FileReader(file.OpenReadStream(), "\t", "\t"))
+                    {
+                        fileReader.Open();
+
+                        StringBuilder builder = new StringBuilder();
+
+                        while (fileReader.ReadLine())
+                        {
+                            builder.AppendLine(fileReader.Line.ToString());
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
             return View();
         }
 
