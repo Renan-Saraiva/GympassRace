@@ -1,4 +1,5 @@
 ﻿using GympassRace.UI.Models;
+using GympassRace.Data;
 using GympassRace.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,17 +22,18 @@ namespace GympassRace.UI.Controllers
             {
                 try
                 {
-                    using (FileReader fileReader = new FileReader(file.OpenReadStream(), "\t", "\t"))
+                    Race race = new Race();
+                    using (FileReader fileReader = new FileReader(file.OpenReadStream()))
                     {
                         fileReader.Open();
 
-                        StringBuilder builder = new StringBuilder();
-
                         while (fileReader.ReadLine())
-                        {
-                            builder.AppendLine(fileReader.Line.ToString());
-                        }
+                            race.AddLap(fileReader.Line);
                     }
+
+                    ProcessRace processor = new ProcessRace(race);
+                    processor.Process();
+
                 }
                 catch (Exception ex)
                 {
