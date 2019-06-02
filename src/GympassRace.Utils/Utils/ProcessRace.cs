@@ -1,4 +1,4 @@
-﻿using GympassRace.Data;
+﻿using GympassRace.Domain;
 using System.Linq;
 using System;
 using System.Collections.Generic;
@@ -31,43 +31,41 @@ namespace GympassRace.Utils
                 foreach (string UnprocessedLap in Race.UnprocessedLaps)
                 {
                     string ul = UnprocessedLap;
-
+                    
                     ul = PartString(ul, ProcessRaceFieldLength.Hour, out string hour);
                     ul = PartString(ul, ProcessRaceFieldLength.RacerCode, out string racerCode);
-                    ul = PartString(ul, GetFirtNumberOccurrenceIndex(ul), out string racerName);
+                    ul = PartString(ul, GetFirstNumberOccurrenceIndex(ul), out string racerName);
                     ul = PartString(ul, ProcessRaceFieldLength.LapNumber, out string lapNumber);
                     ul = PartString(ul, ProcessRaceFieldLength.LapTime, out string lapTime);
                     string lapAVGSpeed = ul;
 
-                    int racerCodeNumber = int.Parse(racerCode.Substring(0, 3));
+                    racerCode = racerCode.Substring(0, 3);
 
-                    if (!ContainsRacer(racerCodeNumber))
-                        Race.Racers.Add(CreateRacer(racerCodeNumber, racerName));
+                    Racer racer;
+                    if (!TryGetRacer(racerCode, out racer))
+                    {
+                        racer = CreateRacer(racerCode, racerName);
+                        Race.Racers.Add(racer);
+                    }
 
-
-
+                    racer.AddLap(CreateLap(hour, lapNumber, lapTime, lapAVGSpeed));
                 }
             }
         }
 
-        private bool ContainsRacer(int id)
+        private bool TryGetRacer(string id, out Racer racer)
         {
-            return Race.Racers.Any(racer => racer.Id.Equals(id));
-        }
-
-        private Racer CreateRacer(int id, string name)
-        {
-            return new Racer(id, name);
-        }
+            racer = Race.Racers.FirstOrDefault(r => r.Id.Equals(id));
+            return racer != null;
+        }        
 
         private string PartString(string value, int length, out string stringParted)
         {
             stringParted = value.Substring(0, length);
-
             return value.Substring(length);
         }
 
-        private int GetFirtNumberOccurrenceIndex(string value)
+        private int GetFirstNumberOccurrenceIndex(string value)
         {
             Regex re = new Regex(@"\d+");
             Match m = re.Match(value);
@@ -75,7 +73,33 @@ namespace GympassRace.Utils
             if (m.Success)
                 return m.Index;
 
-            throw new Exception("Invalid file format");
+            throw new Exception("Formato de arquivo inválido");
         }
+
+        #region Builders
+
+        private Racer CreateRacer(string id, string name)
+        {
+            return new Racer(id, name);
+        }
+
+        private Lap CreateLap(string hour, string lapNumber, string lapTime, string lapAVGSpeed)
+        {
+            if (!TimeSpan.TryParse(hour, out TimeSpan hourTP))
+                throw new Exception("Formato da hora da volta inválido");
+
+            if (!int.TryParse(lapNumber, out int lapNumberInt))
+                throw new Exception("Formato do número da volta inválido");
+
+            if (!TimeSpan.TryParse(string.Concat("00:0", lapTime), out TimeSpan lapTimeTP))
+                throw new Exception("Formato do tempo da volta inválido");
+
+            if (!float.TryParse(lapAVGSpeed, out float lapAVGSpeedFloat))
+                throw new Exception("Formato da velocidade média da volta inválido");
+
+            return new Lap(hourTP, lapNumberInt, lapTimeTP, lapAVGSpeedFloat);
+        }
+
+        #endregion
     }
 }

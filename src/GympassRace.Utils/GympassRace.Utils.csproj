@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GympassRace.Data\GympassRace.Data.csproj" />
+    <ProjectReference Include="..\GympassRace.Domain\GympassRace.Domain.csproj" />
   </ItemGroup>
 
 </Project>

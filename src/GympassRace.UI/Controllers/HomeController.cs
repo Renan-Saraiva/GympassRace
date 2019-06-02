@@ -1,11 +1,12 @@
 ﻿using GympassRace.UI.Models;
-using GympassRace.Data;
+using GympassRace.Domain;
 using GympassRace.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
 using System.Text;
+using System.Globalization;
 
 namespace GympassRace.UI.Controllers
 {

@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{676AD5D7-25A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GympassRace.Utils", "src\GympassRace.Utils\GympassRace.Utils.csproj", "{917C4DD8-191F-45E5-BBCC-7F35FD4E04F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GympassRace.Data", "src\GympassRace.Data\GympassRace.Data.csproj", "{E18F1EAE-A76B-4984-AF69-E33339EC77F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GympassRace.Domain", "src\GympassRace.Domain\GympassRace.Domain.csproj", "{E18F1EAE-A76B-4984-AF69-E33339EC77F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
