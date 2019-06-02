@@ -1,10 +1,8 @@
 ﻿using GympassRace.Domain;
-using GympassRace.UI.Models;
 using GympassRace.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace GympassRace.UI.Controllers
@@ -50,12 +48,6 @@ namespace GympassRace.UI.Controllers
                 ViewBag.ErrorMessage = "Arquivo vazio ou invalido";
 
             return View(race);
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

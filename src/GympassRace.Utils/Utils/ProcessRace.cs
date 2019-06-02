@@ -45,12 +45,12 @@ namespace GympassRace.Utils
                     if (!TryGetRacer(racerCode, out Racer racer))
                     {
                         racer = CreateRacer(racerCode, racerName);
-                        Race.Racers.Add(racer);
+                        Race.AddRacer(racer);
                     }
 
                     Lap lap = CreateLap(hour, lapNumber, lapTime, lapAVGSpeed);
                     
-                    if (lap.LapNumber <= 4 || racer.Laps.Count <= 4)
+                    if (lap.LapNumber <= 4 && racer.Laps.Count < 4)
                         racer.AddLap(CreateLap(hour, lapNumber, lapTime, lapAVGSpeed));
                 }
             }

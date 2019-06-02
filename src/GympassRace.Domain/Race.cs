@@ -5,8 +5,15 @@ namespace GympassRace.Domain
 {
     public class Race
     {
-        public List<string> UnprocessedLaps;
-        public List<Racer> Racers;
+        public List<string> UnprocessedLaps { get; set; }
+        public List<Racer> Racers { get; set; }
+        public bool HasWinner
+        {
+            get
+            {
+                return Racers.Any(racer => racer.EndedRace);
+            }            
+        }
         public Racer Winner
         {
             get
@@ -14,18 +21,18 @@ namespace GympassRace.Domain
                 return Racers.Where(racer => racer.EndedRace).OrderBy(racer => racer.RaceTime).First();
             }
         }
-        public Lap BestLap
-        {
-            get
-            {
-                return Racers.Select(racer => racer.BestLap).OrderBy(lap => lap.LapTime).First();
-            }
-        }
         public List<Racer> FinalClassification
         {
             get
             {
                 return Racers.OrderByDescending(racer => racer.Laps.Count).ThenBy(racer => racer.RaceTime).ToList();
+            }
+        }
+        public List<Racer> BestLapClassification
+        {
+            get
+            {
+                return Racers.OrderBy(racer => racer.BestLap.LapTime).ToList();
             }
         }
 
@@ -39,6 +46,12 @@ namespace GympassRace.Domain
         {
             if (unprocessedLap != null)
                 UnprocessedLaps.Add(unprocessedLap);
+        }
+
+        public void AddRacer(Racer racer)
+        {
+            if (racer != null)
+                Racers.Add(racer);
         }
     }
 }

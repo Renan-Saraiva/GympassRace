@@ -18,6 +18,17 @@
         </div>
     </div>
 }
+else if (!Model.HasWinner)
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">Sem vencedores por aqui!</h4>
+                <p>Nenhum piloto completou a quantidade mínima de 4 voltas!</p>
+            </div>
+        </div>
+    </div>
+}
 else
 {
     <div class="row">
@@ -30,8 +41,8 @@ else
                     <table class="table table-hover table-bordered">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Posição Chegada</th>
-                                <th scope="col">Código Piloto</th>
+                                <th scope="col">Posição de Chegada</th>
+                                <th scope="col">Código do Piloto</th>
                                 <th scope="col">Piloto</th>
                                 <th scope="col">Voltas Completadas</th>
                                 <th scope="col">Tempo Total de Prova</th>
@@ -54,10 +65,6 @@ else
                                             @if (!Model.Winner.Id.Equals(racer.Id))
                                             {
                                                 <span class="text-success"> +(@((Model.Winner.RaceTime - @racer.RaceTime).ToString(@"mm\:ss\.fff")))</span>
-                                            }
-                                            else
-                                            {
-                                                <i class="fas fa-trophy text-warning" title="Vencedor"></i>
                                             }
                                         }
                                         else
@@ -91,13 +98,25 @@ else
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var racer in Model.FinalClassification)
+                            @{ count = 1; }
+                            @foreach (var racer in Model.BestLapClassification)
                             {
                                 <tr>
-                                    <td>@racer.Name</td>
+                                    <td>
+                                        @racer.Name &nbsp;&nbsp;
+                                        @if (Model.Winner.Id.Equals(racer.Id) && racer.EndedRace)
+                                        {
+                                            <i class="fas fa-trophy text-warning" title="Vencedor"></i>
+                                        }
+                                        @if (count == 1)
+                                        {
+                                            <i class="fas fa-star text-warning" title="Volta mais rapida"></i>
+                                        }
+                                    </td>
                                     <td>@racer.BestLap.LapTime.ToString(@"hh\:mm\:ss\.fff")</td>
                                     <td>@racer.RaceAVGSpeed.ToString("n2").Replace(",", ".") km/h</td>
                                 </tr>
+                                count++;
                             }
                         </tbody>
                     </table>
