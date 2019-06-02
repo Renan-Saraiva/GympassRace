@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace GympassRace.Utils
 {
@@ -12,17 +13,16 @@ namespace GympassRace.Utils
         public string Header { get; set; }
         public string Line { get; set; }
 
-
         public FileReader(Stream stream, bool headerInFirstLine = true)
         {
             HeaderInFirstLine = headerInFirstLine;
             _stream = new StreamReader(stream);
         }
         
-        public void Open()
+        public async Task OpenAsync()
         {
             if (HeaderInFirstLine)
-                Header = GetLine();
+                Header = await GetLineAsync();
         }
 
         public void Close()
@@ -32,15 +32,15 @@ namespace GympassRace.Utils
             _stream = null;
         }
 
-        public bool ReadLine()
+        public async Task<bool> ReadLineAsync()
         {
-            Line = GetLine();
+            Line = await GetLineAsync();
             return (Line != null);
         }
 
-        private string GetLine()
+        private async Task<string> GetLineAsync()
         {
-            string row = _stream.ReadLine();
+            string row = await _stream.ReadLineAsync();
 
             if (row == null)
                 return null;

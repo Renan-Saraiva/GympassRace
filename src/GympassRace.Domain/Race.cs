@@ -21,6 +21,13 @@ namespace GympassRace.Domain
                 return Racers.Select(racer => racer.BestLap).OrderBy(lap => lap.LapTime).First();
             }
         }
+        public List<Racer> FinalClassification
+        {
+            get
+            {
+                return Racers.OrderByDescending(racer => racer.Laps.Count).ThenBy(racer => racer.RaceTime).ToList();
+            }
+        }
 
         public Race()
         {

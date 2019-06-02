@@ -1,15 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home";
 }
-
 <div class="card text-center">
-    <div class="card-header">
+    <div class="card-header text-white bg-info">
         Gympass Race
     </div>
     <div class="card-body">
         <h5 class="card-title">Para o processamento faça o upload do arquivo</h5>
         <p class="card-text">Somente arquivos com extensão .log e .txt são suportados</p>
-        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#fileModal">Realizar upload de arquivo</a>
+        <a href="#" class="btn btn-success" data-toggle="modal" data-target="#fileModal"><i class="fas fa-upload"></i>&nbsp;&nbsp;Realizar upload de arquivo</a>
     </div>
 </div>
 
@@ -23,7 +22,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formFile" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="ProcessRaceFile">
+                <form id="formFile" method="post" enctype="multipart/form-data" asp-controller="Race" asp-action="Process">
                     <div class="recipient-file">
                         <label for="file" class="col-form-label">Log da corrida:</label>
                         <input type="file" class="form-control-file" name="file" id="file" accept=".log,.txt" required>
@@ -31,7 +30,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                 <button type="submit" form="formFile" class="btn btn-primary">Enviar arquivo</button>
             </div>
         </div>

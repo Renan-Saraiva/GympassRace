@@ -1,0 +1,114 @@
+﻿@model GympassRace.Domain.Race
+
+@{
+    ViewData["Title"] = "Resultado Final";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">Opps!</h4>
+                <p>Aconteceu algo inesperado</p>
+                <hr>
+                <p class="mb-0">Mensagem de erro: "@ViewBag.ErrorMessage".</p>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header text-center text-white bg-success">
+                    <i class="fas fa-poll-h"></i>&nbsp;&nbsp;Resultado Final
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Posição Chegada</th>
+                                <th scope="col">Código Piloto</th>
+                                <th scope="col">Piloto</th>
+                                <th scope="col">Voltas Completadas</th>
+                                <th scope="col">Tempo Total de Prova</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int count = 1; }
+                            @foreach (var racer in Model.FinalClassification)
+                            {
+                                <tr>
+                                    <th scope="row">@(count)º</th>
+                                    <td>@racer.Id</td>
+                                    <td>@racer.Name</td>
+                                    <td>@racer.Laps.Count</td>
+                                    <td>
+                                        @racer.RaceTime.ToString(@"hh\:mm\:ss\.fff")
+
+                                        @if (racer.EndedRace)
+                                        {
+                                            @if (!Model.Winner.Id.Equals(racer.Id))
+                                            {
+                                                <span class="text-success"> +(@((Model.Winner.RaceTime - @racer.RaceTime).ToString(@"mm\:ss\.fff")))</span>
+                                            }
+                                            else
+                                            {
+                                                <i class="fas fa-trophy text-warning" title="Vencedor"></i>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="text-danger">(Não completou)</span>
+                                        }
+                                    </td>
+                                </tr>
+                                count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header text-center text-white bg-info">
+                    <i class="fas fa-chart-line"></i>&nbsp;&nbsp;Estatística
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Piloto</th>
+                                <th scope="col">Melhor Volta</th>
+                                <th scope="col">Velocidade média</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var racer in Model.FinalClassification)
+                            {
+                                <tr>
+                                    <td>@racer.Name</td>
+                                    <td>@racer.BestLap.LapTime.ToString(@"hh\:mm\:ss\.fff")</td>
+                                    <td>@racer.RaceAVGSpeed.ToString("n2").Replace(",", ".") km/h</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br />
+<div class="row">
+    <div class="col-12">
+        <a class="btn btn-success float-right" asp-action="Index"><i class="fas fa-caret-square-left"></i>&nbsp;&nbsp;Voltar para a página de importação</a>
+    </div>
+</div>

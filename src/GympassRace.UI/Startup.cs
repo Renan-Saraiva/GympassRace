@@ -52,7 +52,7 @@ namespace GympassRace.UI
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Race}/{action=Index}/{id?}");
             });
         }
     }

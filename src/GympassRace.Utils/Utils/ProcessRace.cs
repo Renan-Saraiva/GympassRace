@@ -39,16 +39,19 @@ namespace GympassRace.Utils
                     ul = PartString(ul, ProcessRaceFieldLength.LapTime, out string lapTime);
                     string lapAVGSpeed = ul;
 
-                    racerCode = racerCode.Substring(0, 3);
+                    if (racerCode.Length > 2)
+                        racerCode = racerCode.Substring(0, 3);
 
-                    Racer racer;
-                    if (!TryGetRacer(racerCode, out racer))
+                    if (!TryGetRacer(racerCode, out Racer racer))
                     {
                         racer = CreateRacer(racerCode, racerName);
                         Race.Racers.Add(racer);
                     }
 
-                    racer.AddLap(CreateLap(hour, lapNumber, lapTime, lapAVGSpeed));
+                    Lap lap = CreateLap(hour, lapNumber, lapTime, lapAVGSpeed);
+                    
+                    if (lap.LapNumber <= 4 || racer.Laps.Count <= 4)
+                        racer.AddLap(CreateLap(hour, lapNumber, lapTime, lapAVGSpeed));
                 }
             }
         }
