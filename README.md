@@ -1,6 +1,6 @@
 # GympassRace
 
-Pré-requisitos:
+Pré-requisitos: 
 
 - Ter Visual Studio 2017 ou Visual Studio Code instalado;
 - È necessário que a SDK do ASP.NET CORE 2.2 esteja instalada, o mesmo pode ser obtido através do link https://dotnet.microsoft.com/download/dotnet-core/2.2;
