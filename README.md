@@ -8,6 +8,6 @@ Pré-requisitos:
 - É necessário que as colunas do arquivo de importação estejam na mesma ordem do exemplo dado na página do teste.
 
 Endereço do projeto: 
-https//ec2-52-67-164-12.sa-east-1.compute.amazonaws.com/Gympass
+http://ec2-52-67-164-12.sa-east-1.compute.amazonaws.com/Gympass
 
 Obrigado.
