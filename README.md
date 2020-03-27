@@ -7,6 +7,8 @@ Pré-requisitos:
 - Somente serão aceitos arquivos com extensão do tipo .log/.txt para importação;
 - É necessário que as colunas do arquivo de importação estejam na mesma ordem do exemplo dado na página do teste.
 
+A aplicação está configurada para disparar uma esteira de CI e CD que utiliza o Jenkins, abaixo segue a URL aonde a aplicação é publicada.
+
 Endereço do projeto: 
 http://ec2-52-67-164-12.sa-east-1.compute.amazonaws.com/Gympass
 
