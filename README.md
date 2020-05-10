@@ -12,4 +12,7 @@ A aplicação está configurada para disparar uma esteira de CI e CD que utiliza
 Endereço do projeto: 
 http://ec2-52-67-164-12.sa-east-1.compute.amazonaws.com/Gympass
 
+
+É possível usar este [arquivo](https://github.com/Renan-Saraiva/GympassRace/blob/master/DATA-TESTE.log) para efetuar os testes.
+
 Obrigado.
