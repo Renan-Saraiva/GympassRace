@@ -10,7 +10,7 @@ Pré-requisitos:
 A aplicação está configurada para disparar uma esteira de CI e CD que utiliza o Jenkins, abaixo segue a URL aonde a aplicação é publicada.
 
 Endereço do projeto: 
-http://ec2-52-67-164-12.sa-east-1.compute.amazonaws.com/Gympass
+http://ec2-54-94-252-138.sa-east-1.compute.amazonaws.com/Gympass
 
 
 É possível usar este [arquivo](https://github.com/Renan-Saraiva/GympassRace/blob/master/DATA-TESTE.log) para efetuar os testes.
